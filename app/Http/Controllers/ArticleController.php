@@ -57,7 +57,7 @@ class ArticleController extends Controller
      */
     public function edit(Request $request, int $articleId): JsonResponse {
         $articleCollection = Article::where('id', $articleId)->get(['*']);
-        if($articleCollection->count() === 0) return response()->json(['success' => false, 'message' => 'No Article found.'], 400);
+        if($articleCollection->count() === 0) return response()->json(['success' => false, 'message' => 'No Article found.'], 404);
         try {
             $validated = $request->validate([
                 'title' => 'required|string|max:60',
@@ -87,7 +87,7 @@ class ArticleController extends Controller
      */
     public function show(int $articleId): JsonResponse {
         $article = Article::where('id', $articleId)->get(['*']);
-        if($article->count() === 0) return response()->json(['success' => false, 'message' => 'No Article found.'], 400);
+        if($article->count() === 0) return response()->json(['success' => false, 'message' => 'No Article found.'], 404);
         return response()->json(['article' => $article]);
     }
 
